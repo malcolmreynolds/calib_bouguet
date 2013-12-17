@@ -1,0 +1,26 @@
+This is my library to load the results of the Bouguet calibration toolbox
+(http://www.vision.caltech.edu/bouguetj/calib_doc/). All you need to run this
+code is Numpy, Scipy and the Python bindings that come with recent versions
+of OpenCV (cv2.Rodrigues must exist).
+
+Once you have run the bouguet toolkit and got a calibration you want, save
+and you should have the files 'Calib_Results.m', 'Calib_Results.mat' and 'calib_data.mat'.
+
+Calib_Results.mat is the one to open - this library produces Intrinsics and Extrinsics
+objects containing the data converted from Matlab and in a far more readable format
+(ie no variable names like 'kc').
+
+Example:
+
+
+>>> from calib_bouguet import load_calib_results
+>>> results = load_calib_results('/some/path/to/Calib_Results.mat')
+>>> print results.intrinsics.matrix
+[[ 569.49071207    0.          328.55352627]
+ [   0.          565.09086614  245.12172306]
+ [   0.            0.            1.        ]]
+
+Many thanks to Jean-Yves Bouguet (jbouguet at gmail dot com) for putting together
+the original toolbox.
+
+Any feedback about this package to malcolm.reynolds@gmail.com
