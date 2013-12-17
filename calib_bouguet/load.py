@@ -84,7 +84,7 @@ class Intrinsics(object):
         return Intrinsics(matrix=new_matrix)
 
 
-class CalibrationExtrinsics(object):
+class Extrinsics(object):
     """Stores the extrinsics computed from each checkerboard image,
     i.e. the extrinsics of the camera as related to the checkerboard
     corner"""
@@ -116,12 +116,7 @@ class CalibrationResults(object):
             'kc_error': 'distortion_error',
             'nx': 'image_width',
             'ny': 'image_height',
-            'n_ima': 'num_calibration_images',  # Note this is wrong and should be ignore for non-consecutive image indices!
-            # 'est_fc': 'estimate_focal_length',
-            # 'est_aspect_ratio': 'estimate_aspect_ratio',
-            # 'center_optim': 'estimate_center',
-            # 'est_alpha': 'estimate_skew',
-            # 'est_dist': 'estimate_distortion',
+            'n_ima': 'num_calibration_images',
         }
 
         mat_contents = loadmat(calib_results_mat_fname, squeeze_me=True)
@@ -145,7 +140,7 @@ class CalibrationResults(object):
         for i in range(1, mat_contents['n_ima']+1):
             trans_vec = mat_contents['Tc_%d' % i]
             if not np.all(np.isfinite(trans_vec)):
-                # this image must not have been used
+                # this image must not have existed
                 continue
 
             rot_vec = mat_contents['omc_%d' % i]
@@ -169,7 +164,7 @@ class CalibrationResults(object):
         # Fix the number of images
         intrinsics.num_calibration_images = len(valid_indices)
 
-        all_ext = CalibrationExtrinsics(extrinsics_dict, extrinsics_errors_dict, valid_indices)
+        all_ext = Extrinsics(extrinsics_dict, extrinsics_errors_dict, valid_indices)
 
         return cls(intrinsics, all_ext)
 
