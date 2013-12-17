@@ -166,6 +166,9 @@ class CalibrationResults(object):
             extrinsics_errors_dict[i - 1] = extrinsic_errors
             valid_indices.append(i - 1)
 
+        # Fix the number of images
+        intrinsics.num_calibration_images = len(valid_indices)
+
         all_ext = CalibrationExtrinsics(extrinsics_dict, extrinsics_errors_dict, valid_indices)
 
         return cls(intrinsics, all_ext)
