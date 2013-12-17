@@ -3,6 +3,10 @@ This is my library to load the results of the Bouguet calibration toolbox
 code is Numpy, Scipy and the Python bindings that come with recent versions
 of OpenCV (cv2.Rodrigues must exist).
 
+Installation proceeds as normal for python packages:
+
+$ python setup.py install
+
 Once you have run the bouguet toolkit and got a calibration you want, save
 and you should have the files 'Calib_Results.m', 'Calib_Results.mat' and 'calib_data.mat'.
 
